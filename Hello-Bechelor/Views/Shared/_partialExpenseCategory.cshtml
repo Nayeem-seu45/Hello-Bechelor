@@ -1,0 +1,25 @@
+﻿@*@model ExpenseViewModel
+@{
+
+}
+<h3>Category Mapping</h3>
+
+<div class="form-group row float-right">
+    <button type="submit" class="btn btn-info margin-before">Save</button>
+    <a asp-area="Admin" asp-controller="News" asp-action="Index" class="btn btn-default float-right  margin-before">Cancel</a>
+</div>
+
+<input type="hidden" id="ExpenseCategoryId" value="@Model.ExpenseCategoryId" />
+@foreach (var item in Model.expenseCategoryItemModels)
+{
+    <div class="form-group mb-1 row">
+        <div class="col-sm-1 col-xs-2 text-center pt-2">
+
+            <input type="checkbox" id="Cat_@item.CategoryId" name="options[]" value="@item.CategoryId" onclick="addToArray(@item.CategoryId)">
+
+        </div>
+        <label class="col-sm-10 col-xs-9 col-form-label ml-2">@item.CategoryName</label>
+    </div>
+}*@
+
+

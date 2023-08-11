@@ -1,0 +1,301 @@
+﻿@using Hello_Bechelor.Views.Shared.Components.ExpenseCategories
+@using Hello_Bechelor.Views.Shared.Components.Users
+@model ExpenseViewModel
+
+<style>
+    tr td:last-child {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    .addItem {
+        border: none;
+        background-color: #EBFAEF;
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        color: #2EA851;
+        font-size: 1.2rem;
+    }
+
+    .rmvItem {
+        border: none;
+        background-color: #FEE7E8;
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        color: #F23338;
+        font-size: 1.2rem;
+    }
+</style>
+<form id="create-form" method="post" asp-area="Admin" asp-controller="Expense" asp-action="OnPostAddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryModalPost(this);">
+    <div class="row">
+        <div class="col-md-6" id="slct2">
+            @(await Component.InvokeAsync<ExpenseCategoryViewComponent>(new { selectedId = "ExpenseCategoryId", expenseCategoryId = Model.ExpenseCategoryId, labelclass = "text-right", isRequired = true }))
+        </div>
+        <div class="col-md-6" id="slct2">
+            @(await Component.InvokeAsync<UsersViewComponent>(new { selectedId = "FullName", fullName = Model.ExpenseBy, labelclass = "text-right", isRequired = true }))
+        </div>
+    </div>
+
+    @if (Model.Id > 1)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Expense Date</label>
+                    <input autocomplete="off" id="dateTime" asp-for="ExpenseDate" class="form-control">
+                    <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" autocomplete="off" asp-for="TotalAmount" class="form-control">
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Expense Date</label>
+                    <input autocomplete="off" id="dateTime" name="ExpenseDate" class="form-control">
+                    <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" autocomplete="off" asp-for="TotalAmount" class="form-control numeric">
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+    }
+    <div class="col-md-10">
+        <label for="coupon_question">Do you want keep Bazar Deatils record?</label>
+        <input type="checkbox" value="1" id="detailstableShow" />
+        <span class="item-text">Yes</span>
+    </div>
+
+    <table class="text-center table" id="bazarItem">
+        <thead>
+            <tr>
+                <th width="6%">
+                    Bazar Item
+                </th>
+                <th width="6%">
+                    Quantity/KG
+                </th>
+                <th width="6%">
+                    Rate
+                </th>
+                <th width="12%" class="required">
+                    Total Price
+                </th>
+                <th width="20%">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody id="DetailsDiv">
+            @for (int i = 0; i < Model.BazarItemDetails.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="@Model.BazarItemDetails[i].Id" id="Id_@i" />
+                        @*  @(await Component.InvokeAsync<HRAdminLookupForAllViewComponent>(new { id = $"HRBranchId_{i}", type = "HR Branch", selectedId = $"[{i}].HRBranchId", lookupId = Model[i].HRBranchId, labelclass = "text-right", method = $"selectType(this')", isRequired = ture }))*@
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input asp-for="@Model.BazarItemDetails[i].Quantity"  class="form-control" onkeyup="changeTotalAmount('@i')" id="Quantity__@i">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input asp-for="@Model.BazarItemDetails[i].Rate" class="form-control" onkeyup="changeTotalAmount('@i')" id="Rate__@i">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input asp-for="@Model.BazarItemDetails[i].Price" value="@Model.BazarItemDetails[i].Price" class="form-control priceClass" id="price__@i" readonly>
+                        </div>
+                    </td>
+                    <td>
+						<div class="form-group">
+							<button id="btnAdd_@i" class="addItem" type="button" onclick="addItem(this)" style="margin-right: 5px;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+							<button id="btnRemove_@i" class="rmvItem" type="button" onclick="deleteItem(this)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+						</div>
+					</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row" >
+        <hr />
+        <div class="col-md-6 mt-2">
+            <span class="float-lg-right">Total Bazar Amount:</span>
+        </div>
+        <div class="col-md-6">
+            <input type="text" asp-for="@Model.TotalPrice" class="form-control" id="sumTotalPrice" readonly>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="form-label">Comment</label>
+            <textarea type="text" autocomplete="off" asp-for="Comment" name="Comment" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="row px-2">
+        <button type="submit" class="btn save-button btn-primary" style=" color: white; width:100%; margin-top:10px; margin-left: 7px; margin-right: 7px ">Save</button>
+    </div>
+</form>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#bazarItem").hide();
+
+        $("#ExpenseCategoryId").select2({
+            placeholder: "Search Expense Category",
+            theme: "bootstrap4",
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+        $("#FullName").select2({
+            placeholder: "Search Member",
+            theme: "bootstrap4",
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+       
+        Ladda.bind('.btn', { timeout: 1000 });
+        $('#dateTime').datepicker({
+            dateFormat: "dd/M/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0",
+            bootstrap: 4,
+
+        });
+
+        $('#da').click(function () {
+            datetimeToDate();
+        });
+        function datetimeToDate() {
+            var datetime = $('#dateTime').val();
+
+            var date = datetime.split(' ')[0];
+            return date;
+        }
+
+        $("#detailstableShow").change(function () {
+            if ($('#detailstableShow').is(":checked")) {
+                $("#bazarItem").show();
+            }
+            else
+                $("#bazarItem").hide();
+        });
+    });
+    var addItem = (el) => {
+        let table = document.getElementById('bazarItem');
+        let rows = table.getElementsByTagName('tr');
+        let rowLength = rows.length;
+        let prevIndex = rowLength - 2;
+        let nextIndex = prevIndex + 1;
+        let rowOuterHtml = rows[rows.length - 1].outerHTML;
+        rowOuterHtml = rowOuterHtml.replaceAll(`_${prevIndex}__`, `_${nextIndex}__`);
+        rowOuterHtml = rowOuterHtml.replaceAll(`[${prevIndex}]`, `[${nextIndex}]`);
+        rowOuterHtml = rowOuterHtml.replaceAll(`_${prevIndex}`, `_${nextIndex}`);
+        let newRow = table.insertRow();
+        newRow.innerHTML = rowOuterHtml;
+        removeValue(nextIndex);
+    }
+
+    var deleteItem = (el) => {
+        let table = $('#bazarItem');
+        let rows = $('#bazarItem tr:visible');
+        let rowLength = rows.length;
+        if (rowLength == 2) {
+            ShowMessageError("Can not delete this row");
+            return;
+        }
+        let id = el.id;
+        let index = parseInt(id.split('_')[1]);
+        if ($(`#Id_${index}`).val() == 0) {
+            removeValue(index);
+            $(el).closest('tr').hide();
+        }
+        else {
+            Swal.fire({
+                title: 'Do you want to delete this?',
+                showCancelButton: true,
+                confirmButtonText: `Delete`,
+                icon: 'warning',
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    try {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/HRAdmin/GradeWiseSalary/OnPostSingleDelete?Id=' + $(`#Id_${index}`).val(),
+                            data: { id: $(`#Id_${index}`).val() },
+                            contentType: false,
+                            processData: false,
+                            success: function (res) {
+                                Swal.fire('Deleted!', '', 'success');
+                                removeValue(index)
+                                $(el).closest('tr').hide();
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+                        })
+                    } catch (ex) {
+                        console.log(ex)
+                    }
+                }
+            })
+            return false;
+        }
+        console.dir();
+    }
+
+    function removeValue(index) {
+        $(`#Id_${index}`).val(0);
+        $(`#GradeId_${index}`).val(0);
+        $(`#Quantity_${index}`).val(0);
+        $(`#Rate_${index}`).val(0);
+        $(`#Price_${index}`).val(0);
+    }
+
+    const selectType = (ev) => {
+        let id = $(ev).attr('id');
+        let seletedType = $(`#${id} option:selected`).text();
+
+        const dropdownArray = document.getElementsByClassName('dupplicateValue');
+        let length = dropdownArray.length;
+        for (let i = 0; i < length; i++) {
+            let currentId = dropdownArray[i].getAttribute('id');
+            let currentType = $(`#${currentId} option:selected`).text();
+            if (currentId != id && seletedType === currentType) {
+                ev.selectedIndex = 0;
+                ShowMessageError(`${currentType} value already selected`);
+                return;
+            }
+        }
+    }
+</script>

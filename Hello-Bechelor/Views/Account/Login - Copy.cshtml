@@ -1,0 +1,231 @@
+﻿@model AccountViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+
+    .or {
+        left: 265px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    /* button.social-signin {
+        margin-bottom: 20px;
+        height: 36px;
+        border: none;
+        border-radius: 2px;
+        color: #FFF;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        transition: 0.2s ease;
+        cursor: pointer;
+    }*/
+
+    button.social-signin:hover,
+    button.social-signin:focus {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transition: 0.2s ease;
+    }
+
+    button.social-signin:active {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        transition: 0.2s ease;
+    }
+
+    /* button.social-signin.facebook {
+            background: #32508E;
+        }
+
+
+
+        button.social-signin.google {
+            background: #DD4B39;
+        }*/
+
+    .imgspan {
+        padding-right: 11px;
+        margin-left: 59px;
+        cursor: pointer;
+    }
+
+        .imgspan img {
+            width: 22px;
+            height: 22px;
+            vertical-align: middle;
+        }
+
+    .loginText {
+        font-family: "Roboto-Regular";
+        font-size: 13px;
+        color: #424242;
+        line-height: 18px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .socialicon-login {
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+        padding: 9px 5px;
+        vertical-align: middle;
+        margin-bottom: 10px;
+    }
+
+    .test {
+        border: none !important;
+        background: none !important;
+    }
+</style>
+
+<main class="main">
+    <div class="page-content">
+        <section class="grey-section pt-4 pb-2">
+            <div class="container pt-10">
+                <div class="main-page">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="text-center">Customer login</h4>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-xs-12 col-lg-6">
+                                <div class="box-border">
+                                    <h4>Login</h4>
+                                    <form asp-area="" asp-controller="Account" asp-action="Login" method="post">
+                                        <div class="mt-2">
+                                            <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Phone number or email" min="8">
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="password" asp-for="Password" class="form-control " placeholder="Password">
+                                        </div>
+                                        <div class="mt-2">
+                                            <span asp-validation-for="IncorrectInput" class="text-danger"></span>
+                                            @Html.HiddenFor(s => s.ReturnUrl)
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="#" class="text-danger" style="color:red">Forgot your password?</a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="submit" class="btn btn-primary btn-sm"> Sign in</button>
+                                        </div>
+
+
+                                    </form>
+                                    <br />
+
+                                    <div class="col-md-12 text-center p-t-46 p-t-20">
+
+                                        <div class="border-bottom w-100 mr-lg-8"></div>
+
+                                        <span class="or font-weight-bold text-muted">OR,LOGIN WITH</span>
+                                        <div class="border-bottom w-100 "></div>
+                                    </div>
+
+                                    <br />
+                                    <div class="row">
+
+                                        <div class="col-md-6" style="cursor:pointer;">
+                                            <form asp-controller="Account" asp-action="GoogleLogin" class="socialicon-login">
+
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                <input type="text" hidden="hidden" name="returnUrl" value="/Home/Index" class="currenctURL1" id="currentURL1" />
+
+                                                <button class="test" type="submit">
+                                                    <span class="imgspan">
+                                                        <img src="~/assets/images/login-signup-gmail.png" />
+                                                    </span>
+                                                    <span class="loginText">
+                                                        GOOGLE
+                                                    </span>
+
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-6" style="cursor:pointer;">
+
+                                            <form asp-action="FacebookLogin" asp-controller="Account" class="socialicon-login">
+
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                <input type="text" hidden="hidden" name="returnUrl" value="/Home/Index" class="currenctURL1" id="currentURL1" />
+
+                                                <button class="test" type="submit">
+                                                    <span class="imgspan">
+                                                        <img src="~/assets/images/login-signup-facebook.png" />
+                                                    </span>
+                                                    <span class="loginText">
+                                                        FACEBOOK
+                                                    </span>
+
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-xs-12 col-lg-6">
+                                <div class="box-border">
+                                    <h4>New to Hello Bachelor? Create new account</h4>
+                                    <small>Create an account using your name and phone number.</small>
+                                    <hr />
+                                    <form asp-area="" asp-controller="Account" asp-action="Register" method="post">
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control " asp-for="FullName" placeholder="Name">
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control sm " asp-for="PhoneNumber" placeholder="Phone or email">
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control " asp-for="Password" placeholder="Password">
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control " asp-for="ConfirmPassword" placeholder="Confirm" required>
+                                        </div>
+                                        <div class="mt-2">
+                                            <span asp-validation-for="IncorrectInput" class="text-danger"></span>
+                                            @Html.HiddenFor(s => s.ReturnUrl)
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-primary btn-sm" type="submit">Create account</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+@section Scripts{
+    <script>
+        var password = document.getElementById("RegPassword")
+            , confirm_password = document.getElementById("RegConfirmPassword");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+}

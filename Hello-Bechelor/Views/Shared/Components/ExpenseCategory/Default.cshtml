@@ -1,0 +1,36 @@
+﻿@model ExpenseViewModel
+@{
+    var SelectedId = ViewBag.SelectedId;
+    var ExpenseCategoryId = ViewBag.ExpenseCategoryId;
+    var LableClass = ViewBag.LableClass;
+    var ExpenseCategory = ViewBag.ExpenseCategoryList;
+    var IsRequired = ViewBag.IsRequired;
+}
+
+
+<div class="form-group">
+    <label class="form-label @LableClass">
+        Expense Category
+        @if (@IsRequired.ToString().ToLower() == "true")
+        {
+            <span class="text-danger">*</span>
+        }
+    </label>
+    <div>
+        <select name="ExpenseCategoryId" id="@SelectedId" class="form-control">
+            <option value="" selected> Select Expense Category</option>
+            @foreach (var item in ExpenseCategory)
+            {
+                if (item.Id == ExpenseCategoryId)
+                {
+                    <option value="@item.Id" selected="selected">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+        <span class="text-danger field-validation-valid" data-valmsg-for="ExpenseCategoryId" data-valmsg-replace="true"></span>
+    </div>
+</div>

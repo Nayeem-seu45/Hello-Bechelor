@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Hello_Bechelor</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ExpenseController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Expense\Index.cshtml~RF25590ed.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bechelor.Core\Bechelor.Core.csproj" />
+    <ProjectReference Include="..\Bechelor.Infrastructure\Bechelor.Infrastructure.csproj" />
+    <ProjectReference Include="..\Bechelor.Service\Bechelor.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
+    <Folder Include="wwwroot\Admin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\lib\fontawesome-free\webfonts\fa-solid-900.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Admin\Views\Tanent\_CreateOrEdit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Account\Login.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

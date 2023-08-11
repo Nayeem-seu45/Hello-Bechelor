@@ -1,0 +1,487 @@
+﻿@using Bechelor.Core.Enums
+@model AccountViewModel
+
+<style>
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+
+    .checkboxD {
+        width: 22px;
+        height: 22px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .eye-show {
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        margin-right: 12px;
+        bottom: -4px;
+        font-size: 16px;
+        line-height: 24px;
+        cursor: pointer;
+    }
+
+    #genbutton {
+        padding: 2px 10px;
+        border-radius: 2px;
+        float:right;
+        font-weight:bold;
+    }
+</style>
+
+<div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+    <div class="box-border">
+
+        <form asp-area="Admin" asp-controller="Account" asp-action="Register" method="post">
+           
+            <div class="card">
+                <input type="hidden" class="form-control " asp-for="ConfirmPassword" placeholder="Confirm" required>
+                <div class="card-header d-flex align-items-center">
+                    <h4>Add Mess Member</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2 ml-1">
+                        <div class="col-md-12">
+                            <p class="italic"><small>The field labels marked with * are required input fields.</small></p>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">Full Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control " asp-for="FullName" placeholder="Full Name">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder"> Display Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control " asp-for="NickName" placeholder="Nick Name">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group py-2 required">
+                                <label class="col-md-6 control-label font-weight-bolder">Gender</label>
+                                <div class="col-md-12">
+                                    <input type="radio" asp-for="Gender" value="Male" id="Male" /> Male
+                                    <input type="radio" asp-for="Gender" value="Female" id="Female" /> Female
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">Phone Number</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone or email">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">Email Address</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" asp-for="Email" placeholder="Phone or email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-12 control-label font-weight-bolder">Family Contact Number </label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" asp-for="FamilyContactNumber" placeholder="Phone or email">
+                                    <span asp-validation-for="FamilyContactNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">Occupation </label>
+                                <div class="col-md-12">
+                                    <select asp-for="Occupation" asp-items="Html.GetEnumSelectList<Occupation>()" class="form-control">
+                                        <option selected="selected" value="">Choose Option</option>
+                                    </select>
+                                    <span asp-validation-for="Occupation" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">NID Number</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" asp-for="NIDNumber" placeholder="NID Number">
+                                    <span asp-validation-for="NIDNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label font-weight-bolder"> Joining Date</label>
+                                <div class="col-md-12">
+                                    <input class="form-control" name="JoiningDate" value="@DateTime.Now.ToString("dd/MM/yyy")" placeholder="Joining Date" id="joiningDate">
+                                    <span asp-validation-for="JoiningDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group required">
+                                <label class="col-md-6 control-label font-weight-bolder">Password</label>
+
+                                <div class="col-md-12">
+                                    <input type="password" class="form-control col-lg-12" asp-for="Password" placeholder="Password" id="txtPassword">
+                                    <div class="eye-show">
+                                        <span id="toggle_pwd" asp-validation-for="Password" class="text-danger fa fa-fw fa-eye                   field_icon"></span>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <button id="genbutton" type="button" class="btn btn-primary text-white ">Generate</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="col-md-12 col-form-label font-weight-bolder">Parmament Address</label>
+                                <div class="col-md-12">
+                                    <textarea type="text" autocomplete="off" asp-for="PermanentAddress" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-2">
+                        <span asp-validation-for="IncorrectInput" class="text-danger"></span>
+                        @Html.HiddenFor(s => s.ReturnUrl)
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-6 ml-3">
+                            <div class="checkbox">
+                                <label class="text-center">
+                                    <input type="checkbox"> I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary btn-sm" type="submit">Create Profile</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            //var date = new Date();
+            //var currentMonth = date.getMonth();
+            // var currentDate = date.getDate();
+            //var currentYear = date.getFullYear();
+            $('#joiningDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0",
+                bootstrap: 4,
+                //uiLibrary: 'bootstrap4',
+                //minDate: new Date(currentYear, currentMonth, currentDate - 10),
+                maxDate: new Date(),
+                //format: 'yyyy-mm-dd'
+            });
+
+            $("#toggle_pwd").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("[id*=txtPassword]").attr("type", type);
+            });
+           
+
+        });
+        $('#joiningDate').keypress(function (event) { event.preventDefault(); });
+
+        let pass = '';
+        $('#genbutton').on("click", function () {
+            $.get('/Admin/Account/GetRandomPassword', function (data) {
+                $("input[name='Password']").val(data);
+                $("input[name='ConfirmPassword']").val(data);
+                pass = data
+                console.log(pass);
+            });
+          
+           
+        });
+
+        //$('#txtPassword').keyup(e){
+        //    console.log(e);
+        //});
+        //let pass = $('#txtPassword').val();
+        //console.log(pass);
+        $('#txtPassword').blur(function () {
+            //let pass = $('#txtPassword').val();
+            let dInput = this.value;
+            if (dInput.length < 8) {
+                ShowMessageError('Minimum password lenth 8 character required');
+                $('#txtPassword').val(pass);
+                return
+            }
+
+            $("input[name='ConfirmPassword']").val(dInput);
+          
+           // console.log(dInput);
+           
+        });
+
+    </script>
+
+    @*<script>
+
+            var theme = "light";
+            if (theme == 'dark') {
+                $('body').addClass('dark-mode');
+                $('#switch-theme i').addClass('dripicons-brightness-low');
+            }
+            else {
+                $('body').removeClass('dark-mode');
+                $('#switch-theme i').addClass('dripicons-brightness-max');
+            }
+            $('#switch-theme').click(function () {
+                if (theme == 'light') {
+                    theme = 'dark';
+                    var url = "https:\/\/salepropos.com\/demo\/switch-theme\/dark";
+                    $('body').addClass('dark-mode');
+                    $('#switch-theme i').addClass('dripicons-brightness-low');
+                }
+                else {
+                    theme = 'light';
+                    var url = "https:\/\/salepropos.com\/demo\/switch-theme\/light";
+                    $('body').removeClass('dark-mode');
+                    $('#switch-theme i').addClass('dripicons-brightness-max');
+                }
+
+                $.get(url, function (data) {
+                    console.log('theme changed to ' + theme);
+                });
+            });
+
+            var alert_product = 5;
+
+            if ($(window).outerWidth() > 1199) {
+                $('nav.side-navbar').removeClass('shrink');
+            }
+
+            function myFunction() {
+                setTimeout(showPage, 100);
+            }
+
+            function showPage() {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }
+
+            $("div.alert").delay(4000).slideUp(800);
+
+            function confirmDelete() {
+                if (confirm("Are you sure want to delete?")) {
+                    return true;
+                }
+                return false;
+            }
+
+            $("li#notification-icon").on("click", function (argument) {
+                $.get('notifications/mark-as-read', function (data) {
+                    $("span.notification-number").text(alert_product);
+                });
+            });
+
+            $("a#add-expense").click(function (e) {
+                e.preventDefault();
+                $('#expense-modal').modal();
+            });
+
+            $("a#send-notification").click(function (e) {
+                e.preventDefault();
+                $('#notification-modal').modal();
+            });
+
+            $("a#add-account").click(function (e) {
+                e.preventDefault();
+                $('#account-modal').modal();
+            });
+
+            $("a#account-statement").click(function (e) {
+                e.preventDefault();
+                $('#account-statement-modal').modal();
+            });
+
+            $("a#profitLoss-link").click(function (e) {
+                e.preventDefault();
+                $("#profitLoss-report-form").submit();
+            });
+
+            $("a#report-link").click(function (e) {
+                e.preventDefault();
+                $("#product-report-form").submit();
+            });
+
+            $("a#purchase-report-link").click(function (e) {
+                e.preventDefault();
+                $("#purchase-report-form").submit();
+            });
+
+            $("a#sale-report-link").click(function (e) {
+                e.preventDefault();
+                $("#sale-report-form").submit();
+            });
+            $("a#sale-report-chart-link").click(function (e) {
+                e.preventDefault();
+                $("#sale-report-chart-form").submit();
+            });
+
+            $("a#payment-report-link").click(function (e) {
+                e.preventDefault();
+                $("#payment-report-form").submit();
+            });
+
+            $("a#warehouse-report-link").click(function (e) {
+                e.preventDefault();
+                $('#warehouse-modal').modal();
+            });
+
+            $("a#user-report-link").click(function (e) {
+                e.preventDefault();
+                $('#user-modal').modal();
+            });
+
+            $("a#customer-report-link").click(function (e) {
+                e.preventDefault();
+                $('#customer-modal').modal();
+            });
+
+            $("a#customer-group-report-link").click(function (e) {
+                e.preventDefault();
+                $('#customer-group-modal').modal();
+            });
+
+            $("a#supplier-report-link").click(function (e) {
+                e.preventDefault();
+                $('#supplier-modal').modal();
+            });
+
+            $("a#due-report-link").click(function (e) {
+                e.preventDefault();
+                $("#customer-due-report-form").submit();
+            });
+
+            $("a#supplier-due-report-link").click(function (e) {
+                e.preventDefault();
+                $("#supplier-due-report-form").submit();
+            });
+
+            $(".account-statement-daterangepicker-field").daterangepicker({
+                callback: function (startDate, endDate, period) {
+                    var start_date = startDate.format('YYYY-MM-DD');
+                    var end_date = endDate.format('YYYY-MM-DD');
+                    var title = start_date + ' To ' + end_date;
+                    $(this).val(title);
+                    $('#account-statement-modal input[name="start_date"]').val(start_date);
+                    $('#account-statement-modal input[name="end_date"]').val(end_date);
+                }
+            });
+
+            $('.date').datepicker({
+                format: "dd-mm-yyyy",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-link',
+            });
+
+        </script>*@
+
+    @*<script>
+
+
+            $("ul#people").siblings('a').attr('aria-expanded', 'true');
+            $("ul#people").addClass("show");
+            $("ul#people #user-create-menu").addClass("active");
+
+            $('#warehouseId').hide();
+            $('#biller-id').hide();
+            $('.customer-section').hide();
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-link',
+            });
+
+
+
+            $('select[name="role_id"]').on('change', function () {
+                if ($(this).val() == 5) {
+                    $('#biller-id').hide(300);
+                    $('#warehouseId').hide(300);
+                    $('.customer-section').show(300);
+                    $('.customer-input').prop('required', true);
+                    $('select[name="warehouse_id"]').prop('required', false);
+                    $('select[name="biller_id"]').prop('required', false);
+                }
+                else if ($(this).val() > 2 && $(this).val() != 5) {
+                    $('select[name="warehouse_id"]').prop('required', true);
+                    $('select[name="biller_id"]').prop('required', true);
+                    $('#biller-id').show(300);
+                    $('#warehouseId').show(300);
+                    $('.customer-section').hide(300);
+                    $('.customer-input').prop('required', false);
+                }
+                else {
+                    $('select[name="warehouse_id"]').prop('required', false);
+                    $('select[name="biller_id"]').prop('required', false);
+                    $('#biller-id').hide(300);
+                    $('#warehouseId').hide(300);
+                    $('.customer-section').hide(300);
+                    $('.customer-input').prop('required', false);
+                }
+            });
+
+        </script>*@
+}

@@ -1,0 +1,141 @@
+﻿<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/index">
+                    <i class="nav-icon icon-speedometer"></i> Dashboard
+                    <span class="badge badge-primary">NEW</span>
+                </a>
+            </li>
+            <li class="nav-title">Theme</li>
+            <li class="nav-item">
+                <a class="nav-link" href="/colors">
+                    <i class="nav-icon icon-drop"></i> Colors
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/typography">
+                    <i class="nav-icon icon-pencil"></i> Typography
+                </a>
+            </li>
+            <li class="nav-title">Components</li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="fa fa-wallet"></i> Expense
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="ExpenseCategory" asp-action="Index" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Expense Category
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Expense" asp-action="Index" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Expense List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a onclick="jQueryModalGet('/Admin/Expense/OnGetAddOrEdit/')" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Add Expense
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="icon-user"></i> People
+                </a>
+                <ul class="nav-dropdown-items">
+
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Account" asp-action="Index" class="nav-link">
+                            &nbsp; &nbsp; Member List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="nav-link">&nbsp;&nbsp; Add Member </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="nav-link">
+                            &nbsp; &nbsp; Role List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a onclick="jQueryModalGet('/admin/role/OnGetCreate','Create Role')" class="nav-link">
+                            &nbsp; &nbsp; Add Role
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Tanent" asp-action="Index" class="nav-link">&nbsp;&nbsp; Add Tanent </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="fa fa-wallet"></i> Common Setup
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="RentCost" asp-action="Index" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Rent Cost
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="Admin" asp-controller="Expense" asp-action="Index" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Expense List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a onclick="jQueryModalGet('/Admin/Expense/OnGetAddOrEdit/')" class="nav-link">
+                            <i class="nav-icon icon-puzzle"></i> Add Expense
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-title">Extras</li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-star"></i> Pages
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login" target="_top">
+                            <i class="nav-icon icon-star"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register" target="_top">
+                            <i class="nav-icon icon-star"></i> Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/404" target="_top">
+                            <i class="nav-icon icon-star"></i> Error 404
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/500" target="_top">
+                            <i class="nav-icon icon-star"></i> Error 500
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @*<li class="nav-item mt-auto">
+            <a class="nav-link nav-link-success" href="https://coreui.io" target="_top">
+                <i class="nav-icon icon-cloud-download"></i> Download CoreUI
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link nav-link-danger" href="https://coreui.io/pro/" target="_top">
+                <i class="nav-icon icon-layers"></i> Try CoreUI
+                <strong>PRO</strong>
+            </a>
+        </li>*@
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div>

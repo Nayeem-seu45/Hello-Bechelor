@@ -1,0 +1,78 @@
+﻿@using Hello_Bechelor.Areas.Admin.Models
+@model IEnumerable<RoleViewModel>
+<table class="table" id="roleTable">
+    <thead>
+        <tr>
+            <th>
+                Role Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Number of User
+            </th>
+
+            <th style="width:10%">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>
+                    <div class="widget-heading">
+                        @role.Name.ToUpper()
+                        @if (role.Name == "admin")
+                        {
+                            <div class="badge badge-primary ml-2">Static</div>
+                        }
+                        @if (role.Name == "member")
+                        {
+                            <div class="badge badge-warning ml-2">default</div>
+                        }
+
+                    </div>
+                </td>
+                <td>
+                    @role.Description
+                </td>
+                <td>
+                    @role.NumberOfUsers
+                </td>
+                <td text-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu shadow animated--grow-in">
+                            <a onclick="jQueryModalGet('/admin/role/OnGetCreate?id=@role.Id','Edit Role')" class="dropdown-item">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                            
+                            <form id="modal_delete_@role.Id" asp-action="OnPostDelete" asp-route-id="@role.Id" onsubmit="jQueryModalDelete(this); return false;" class="d-inline deletePress">
+                                <a href="javascript:$('#modal_delete_@role.Id').submit();" class="btn btn-danger text-white"><i class="fa fa-trash"></i> Delete</a>
+
+                            </form>
+                            @if (role.Name != "admin")
+                            {
+
+                                <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" class="dropdown-item">
+                                    <i class="fas fa-wrench"></i>Manage Permissions"
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#roleTable").DataTable();
+    });
+</script>

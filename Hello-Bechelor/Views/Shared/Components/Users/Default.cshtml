@@ -1,0 +1,36 @@
+﻿@model ExpenseViewModel
+@{
+    var SelectedId = ViewBag.SelectedId;
+    var User = ViewBag.User;
+    var LableClass = ViewBag.LableClass;
+    var UserList = ViewBag.UserList;
+    var IsRequired = ViewBag.IsRequired;
+
+}
+
+<div class="form-group">
+    <label class="form-label @LableClass">
+        Expense by
+        @if (@IsRequired.ToString().ToLower() == "true")
+        {
+            <span class="text-danger">*</span>
+        }
+    </label>
+    <div>
+        <select name="ExpenseBy" id="@SelectedId" class="form-control">
+            <option value="" selected> Select Expense By</option>
+            @foreach (var item in UserList)
+            {
+                if (item.FullName == User)
+                {
+                    <option value="@item.FullName" selected="selected">@item.FullName</option>
+                }
+                else
+                {
+                    <option value="@item.FullName">@item.FullName</option>
+                }
+            }
+        </select>
+        <span class="text-danger field-validation-valid" data-valmsg-for="User" data-valmsg-replace="true"></span>
+    </div>
+</div>

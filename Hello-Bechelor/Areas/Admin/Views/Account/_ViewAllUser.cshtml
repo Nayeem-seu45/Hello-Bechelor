@@ -1,0 +1,121 @@
+﻿@using Hello_Bechelor.ServicesProvider
+@model List<UserRolesViewModel>
+@{
+    var IsManager = ViewBag.ManagerRoleAssign;
+    int Sl = 1;
+}
+<style>
+    .customeAction {
+        /*font-size: 18px;
+        font-weight: 400;
+        border-radius: 50%;
+        border: 0;
+        cursor: pointer;
+        min-width: 36px;
+        min-height: 36px;
+        padding: 6px;*/
+        min-width: 30px;
+        min-height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+        cursor: pointer !important;
+        padding: 5px;
+    }
+</style>
+
+<div class="card-body">
+    <table class="table dataTable" id="userTable">
+
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Assign Manager</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @Sl
+                        @{
+                            Sl++;
+                        }
+                    </td>
+                    <td>
+                        @user.FullName
+                        @if (user.IsOnline)
+                        {
+                            <i class="fa fa-dot-circle-o text-success"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-dot-circle-o text-danger"></i>
+                        }
+
+                    </td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Email</td>
+                    <td>@string.Join(" , ", user.Roles.ToList())</td>
+                    @if (User.IsInRole(SD.AdminRole))
+                    {
+                        <td>
+                            @if (IsManager != SD.Yes)
+                            {
+                                <a class="btn btn-primary" asp-controller="Account" asp-action="AssignManage" asp-route-userId="@user.UserId">Manager</a>
+                            }
+
+                            @if (user.Roles.FirstOrDefault() == SD.ManagerRole)
+                            {<a class="btn btn-primary" asp-controller="Account" asp-action="AssignManage" asp-route-userId="@user.UserId" asp-route-role="Member">Default</a>
+
+                            }
+
+                        </td>
+
+                    }
+
+                    <td>
+                        @if (user.Status)
+                        {
+                            <div class="badge badge-primary ml-2">Active</div>
+                        }
+                        else
+                        {
+                            <div class="badge badge-warning ml-2">InActive</div>
+                        }
+
+                    </td>
+                    <td class="text-right cus">
+                        <a onclick="jQueryModalGet('/Admin/Expense/OnGetAddOrEdit?id=@user.UserId','Edit Expense')" class="btn btn-info text-white customeAction"><i class="fa fa-edit"></i></a>
+
+                        <form id="modal_delete_@user.UserId" asp-action="Delete" asp-route-id="@user.UserId" onsubmit="jQueryModalDelete(this); return false;" class="d-inline deletePress">
+                            <a href="javascript:$('#modal_delete_@user.UserId').submit();" class="btn btn-danger text-white customeAction"><i class="fa fa-trash"></i></a>
+                        </form>
+                        <a asp-area="Admin" asp-controller="Account" asp-action="Profile" asp-route-UserId="@user.UserId" class="btn btn-primary customeAction text-white">
+                            <i class="fa fa-eye"></i>
+                        </a>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(function () {
+        $("#userTable").DataTable();
+    });
+</script>
+
+

@@ -1,0 +1,90 @@
+﻿@model AccountViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    .login-page .form-outer, .register-page .form-outer {
+        min-height: 100vh;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px 0;
+        position: relative;
+    }
+
+    .login-page .form-inner, .register-page .form-inner {
+        border-radius: 5px;
+        padding: 40px 30px;
+        background: #FFF;
+        box-shadow: 0 0 35px rgb(0 0 0 / 10%);
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .login-page form, .register-page form {
+        margin: 2rem auto 1rem;
+        max-width: 300px;
+    }
+    .btn {
+        font-weight: 400;
+        border: 1px solid transparent;
+        padding: 0.45rem 0.75rem;
+        font-size: .9rem;
+        line-height: 1.5;
+    }
+      
+
+</style>
+
+<div class="page login-page">
+    <div class="container">
+        <div class="form-outer text-center d-flex align-items-center">
+            <div class="form-inner">
+                <div class="logo">
+                    <img src="" width="110">
+                </div>
+                <form method="POST" action="" id="login-form">
+                    <input type="hidden" name="" value="">              
+                    <div class="form-group-material">
+                        <input id="login-username" type="text" name="name" required class="input-material" value="">
+                        <label for="login-username" class="label-material">UserName</label>
+                    </div>
+
+                    <div class="form-group-material">
+                        <input id="login-password" type="password" name="password" required class="input-material" value="">
+                        <label for="login-password" class="label-material">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">LogIn</button>
+                </form>
+                <!-- This three button for demo only-->
+                <button type="submit" class="btn btn-success admin-btn">LogIn as Admin</button>
+                <button type="submit" class="btn btn-info staff-btn">LogIn as Staff</button>
+                <button type="submit" class="btn btn-dark customer-btn">LogIn as Customer</button>
+                <br><br>
+                <a href="https://salepropos.com/demo/password/reset" class="forgot-pass">Forgot Password?</a>
+                <p>Do not have an account?</p><a href="https://salepropos.com/demo/register" class="signup">Register</a>
+            </div>
+            <div class="copyrights text-center">
+                <p>Developed By <span class="external">LionCoders</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        var password = document.getElementById("RegPassword")
+            , confirm_password = document.getElementById("RegConfirmPassword");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+}

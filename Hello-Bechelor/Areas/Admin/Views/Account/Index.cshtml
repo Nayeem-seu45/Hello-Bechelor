@@ -1,0 +1,63 @@
+﻿<style>
+    .btn-glyphicon {
+        padding: 8px;
+     /*   background: #ffffff;*/
+        margin-right: 4px;
+    }
+
+    .icon-btn {
+        padding: 1px 15px 3px 2px;
+        border-radius: 50px;
+    }
+
+</style>
+
+<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="col-sm-12 text-white" style="padding:20px">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <a asp-area="Admin" asp-controller="Account" asp-action="Register" class="btn btn-info text-white"><i class="fa fa-plus">&nbsp; Add Member </i></a>
+                            <a id="reload" class="btn btn-primary">
+                                <i class="fa fa-refresh"></i>
+                                Reload
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 text-right">
+                            <div class="dt-buttons btn-group text-right">
+                                <button class="btn btn-danger buttonsPdf" type="button"><span><i title="export to pdf" class="fa fa-file-pdf-o"></i></span></button>
+                                <button class="btn btn-secondary buttonsCsv" type="button"><span><i title="export to csv" class="fa fa-file-text-o"></i></span></button>
+                                <button class="btn btn-primary buttonsPrint" type="button"><span><i title="print" class="fa fa-print"></i></span></button>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+               
+                <div id="viewAll" class="table-responsive">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            loadUser();
+            $("#userTable").DataTable();
+            $('#reload').on('click', function () {
+                loadUser();
+            });
+        });
+        function loadUser() {
+            $('#viewAll').load('/Admin/Account/LoadAll');
+        }
+
+    </script>
+}

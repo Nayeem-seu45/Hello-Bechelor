@@ -1,0 +1,42 @@
+﻿<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="text-center">
+                    @*<h1 class="display-1">Ultra Bachelor</h1>*@
+
+                </div>
+                <div class="col-sm-12 text-white" style="padding:20px">
+                    <a onclick="jQueryModalGet('/admin/role/OnGetCreate','Create Role')" class="btn btn-info">
+                        <i class="fa fa-plus"></i>
+                        Add Role
+                    </a>
+                    <a id="reload" class="btn btn-primary">
+                        <i class="fa fa-refresh"></i>
+                        Reload
+                    </a>
+                </div>
+                <div id="viewAll" class="card-body table-responsive">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+    <script>
+        $(function () {
+            $("#roleTable").DataTable();
+            loadData();
+            $('#reload').on('click', function () {
+                loadData();
+            });
+        });
+        function loadData() {
+            $('#viewAll').load('/admin/role/LoadAll');
+        }
+    </script>
+}

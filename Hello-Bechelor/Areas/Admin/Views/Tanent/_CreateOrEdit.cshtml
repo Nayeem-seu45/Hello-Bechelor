@@ -1,0 +1,37 @@
+﻿@using Hello_Bechelor.Areas.Admin.Models;
+@model TanentViewModel
+
+<form id="create-form" method="post" asp-area="Admin" asp-controller="Tanent" asp-action="OnPostCreateOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryModalPost(this);">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input asp-for="TanentName"  class="form-control">
+                <span asp-validation-for="TanentName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Code</label>
+                <input asp-for="TanentCode" class="form-control">
+                <span asp-validation-for="TanentCode" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row px-2 ">
+        <div class="col-md-6">
+            <div class="form-group">
+                <button type="submit" class="btn col-12 close-button" data-dismiss="modal" style="background-color:#ffe4e1; color: red">Cancel</button>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary col-12 save-button" style="color: white">Save</button>
+            </div>
+
+        </div>
+    </div>
+</form>

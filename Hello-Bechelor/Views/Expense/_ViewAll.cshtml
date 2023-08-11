@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ExpenseViewModel>
+@{ 
+    int sl = 0;
+}
+<table class="table table-bordered" id="expenseTable">
+    <thead>
+        <tr>
+            <th>
+               SL.
+            </th>
+            <th>
+                Expense area
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Expense Date
+            </th>
+            <th>
+                Expense By
+            </th>
+            <th>
+                Note
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var expense in Model)
+            {
+                sl++;
+                <tr>
+                    <td>
+                        @sl
+                    </td>
+                    <td>
+                        @expense.ExpenseCategoryName
+                    </td>
+                    <td>
+                        @expense.TotalAmount
+                    </td>
+                    <td id="date">
+                        @expense.ExpenseDate
+                    </td>
+                    <td>
+                        @expense.ExpenseBy
+                    </td>
+                    <td>
+                        @expense.Comment
+                    </td>
+                    <td class="text-right">
+                        <a onclick="jQueryModalGet('/Expense/OnGetAddOrEdit?id=@expense.Id','Edit Expense')" class="btn btn-info text-white"><i class="fa fa-edit"></i> Edit</a>
+                        @*<form method="post" asp-controller="Expense" asp-action="Delete" asp-route-id="@expense.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+            <input hidden name="id" value="@expense.Id" />
+            <button type="submit" class="btn btn-danger text-white"><i class="fa fa-trash"></i> Delete</button>
+        </form>*@
+                        <form id="modal_delete_@expense.Id" method="post" asp-action="Delete" asp-route-id="@expense.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+                            <a href="javascript:$('#modal_delete_@expense.Id').submit();" class="btn btn-danger text-white"><i class="fa fa-trash"></i> Delete</a>
+                            @*<input type="hidden" asp-for="@expense.Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />*@
+                        </form>
+                        @*<button onclick="getDbInfo(@expense.Id)" class="btn btn-danger text-white"><i class="fa fa-trash"></i></button>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#expenseTable").DataTable();
+    });
+
+</script>

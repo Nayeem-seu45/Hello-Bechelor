@@ -1,0 +1,166 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.table th, .table td {
+    padding: 0.25rem !important;
+    white-space: nowrap;
+    width: 1%;
+    text-align: center;
+    vertical-align: middle;
+}
+    a .navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+.card {
+    padding: 2px;
+    border-radius: 1.1rem;
+}
+.modal-content {
+    border-radius: 1.1rem !important;
+}
+
+.modal-dialog .modal-content .close {
+    background-color: #a0a0a0;
+    border: 0;
+    color: #ffffff;
+    font-size: 13px;
+    height: 20px;
+    line-height: 20px;
+    opacity: 1;
+    width: 20px;
+    z-index: 99;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    right: 12px;
+}
+
+
+.table thead th {
+    border-bottom: 1px solid #c8ced3;
+    font-weight: 600;
+    background-color: #e4e6fc;
+}
+
+.form-control {
+    background-color: #fdfdff;
+    border-color: #e4e6fc;
+}
+
+.dt-buttons {
+    display: inline-block;
+    text-align: right;
+    width: 40%;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: none !important;
+}
+.card-title {
+    margin-bottom: 0px !important;
+    color: #64728c;
+}
+hr{
+    margin-top:5px;
+}
+
+.customeAction {
+    min-width: 30px;
+    min-height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    cursor: pointer !important;
+    padding: 5px;
+}
+
+.addItem {
+    border: none;
+    background-color: #EBFAEF;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    color: #2EA851;
+    font-size: 1.2rem;
+}
+
+.rmvItem {
+    border: none;
+    background-color: #FEE7E8;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    color: #F23338;
+    font-size: 1.2rem;
+}

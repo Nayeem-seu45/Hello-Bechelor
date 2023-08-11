@@ -1,0 +1,30 @@
+﻿@model AccountViewModel
+
+<div class="col-sm-6 col-md-6 col-xs-12 col-lg-6">
+    <div class="box-border">
+
+        <form asp-area="" asp-controller="Account" asp-action="Register" method="post">
+            <div class="mt-2">
+                <input type="text" class="form-control " asp-for="FullName" placeholder="Full Name">
+            </div>
+            <div class="mt-2">
+                <input type="text" class="form-control sm " asp-for="PhoneNumber" placeholder="Phone or email">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+            </div>
+            <div class="mt-2">
+                <input type="text" class="form-control " asp-for="Password" placeholder="Password">
+            </div>
+            <div class="mt-2">
+                <input type="text" class="form-control " asp-for="ConfirmPassword" placeholder="Confirm" required>
+            </div>
+            <div class="mt-2">
+                <span asp-validation-for="IncorrectInput" class="text-danger"></span>
+                @Html.HiddenFor(s => s.ReturnUrl)
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm" type="submit">Create account</button>
+            </div>
+        </form>
+    </div>
+</div>

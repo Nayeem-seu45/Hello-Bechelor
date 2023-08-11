@@ -1,0 +1,31 @@
+﻿<div class="text-center">
+    <h1 class="display-4">Ultra Bachelor</h1>
+
+</div>
+
+<div class="card">
+    <div class="col-sm-12 text-white" style="padding:20px">
+        <a onclick="jQueryModalGet('/Expense/OnGetAddOrEdit/')" class="btn btn-info">
+            <i class="fa fa-plus"></i>
+            Add Expense
+        </a>
+        <a id="reload" class="btn btn-primary">
+            <i class="fa fa-refresh"></i>
+            Reload
+        </a>
+    </div>
+    <div id="viewAll" class="card-body table-responsive"></div>
+</div>
+
+@section Scripts
+{
+    <script>$(document).ready(function () {
+    $('#viewAll').load('/Expense/ViewAllLoad');
+        });
+
+        $(function () {
+            $('#reload').on('click', function () {
+                $('#viewAll').load('/Expense/ViewAllLoad');
+            });
+        });</script>
+}

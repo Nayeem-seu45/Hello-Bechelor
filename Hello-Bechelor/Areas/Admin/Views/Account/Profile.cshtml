@@ -1,0 +1,292 @@
+﻿@using Hello_Bechelor.Areas.Admin.Models
+@model UserProfileViewModel
+<style>
+    .profile-view .profile-basic .profile-info-left {
+        border-right: 2px dashed #cccccc;
+    }
+
+    .profile-view .profile-basic {
+        margin-left: 140px;
+        padding-right: 50px;
+    }
+
+    .profile-view .profile-img-wrap {
+        height: 120px;
+        width: 120px;
+        position: absolute;
+    }
+
+    .profile-view .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+        display: flex;
+        cursor: pointer;
+        overflow: hidden;
+        justify-content: center;
+        box-sizing: border-box;
+        border: 0.5rem solid #f6f5fb;
+        box-shadow: 1px 1px 18px 11px rgb(186 186 202 / 24%);
+    }
+
+    .personal-info {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .personal-info li .title {
+            color: #333333;
+            float: left;
+            font-weight: 500;
+            margin-right: 30px;
+            width: 25%;
+        }
+
+        .personal-info li .text {
+            color: #888888;
+            display: block;
+            overflow: hidden;
+        }
+
+        .personal-info li {
+            margin-bottom: 10px;
+        }
+
+    .edit-icon {
+        background-color: #eeeeee;
+        border: 1px solid #e3e3e3;
+        color: #bbb;
+        float: right;
+        font-size: 12px;
+        line-height: 24px;
+        min-height: 26px;
+        text-align: center;
+        width: 26px;
+        border-radius: 24px;
+    }
+
+    .profile-view .pro-edit {
+        position: absolute;
+        top: -15px;
+        right: 0;
+    }
+
+    .profile-view .profile-basic .profile-info-left .staff-msg {
+        margin-top: 0px;
+    }
+
+        .profile-view .profile-basic .profile-info-left .staff-msg .btn-custom {
+            background: #ff9b44;
+            background: linear-gradient(to right, #724e2e 0%, #22697e 100%);
+            color: #ffffff;
+        }
+
+    .card .card-title {
+        color: #1f1f1f;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 20px !important;
+    }
+
+    .progress {
+        height: 20px;
+       min-width:250px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+        box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+    }
+
+    .list-group-item {
+        border: none !important;
+    }
+
+    .btn-custom {
+        background: #ff9b44;
+        background: linear-gradient(to right, #724e2e 0%, #22697e 100%);
+        color: #ffffff;
+    }
+</style>
+
+<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-view">
+                                <div class="profile-img-wrap">
+                                    <div class="profile-img">
+                                        <a href="#"><img id="profilePicture" alt="" src="@Model.ProfilePictureUrl" width="150" height="150"></a>
+                                    </div>
+                                </div>
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="profile-info-left">
+                                                <h3 class="user-name m-t-0 mb-0">@Model.FullName</h3>
+                                                <small class="text-muted">@Model.CurrentRole</small>
+                                                <div class="small doj text-muted">Date of Join : @Model.JoiningDate.ToShortDateString()</div>
+
+                                               <div class="staff-msg">
+                                                        <ul class="list-group list-group-unbordered" style="margin-right:200px;">
+                                                            <li class="list-group-item text-center">
+                                                                <br />
+                                                                <span class="btn btn-custom fileinput-button">
+                                                                    <i class="fa fa-camera"></i>
+                                                                    <span>Select file ...</span>
+                                                                    <!-- The file input field used as target for the file upload widget -->
+                                                                    <input class="fileupload" type="file" name="files" multiple="">
+                                                                </span>
+
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+                                            
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <ul class="personal-info">
+                                                <li>
+                                                    <div class="title">Phone:</div>
+                                                    <div class="text"><a href="">@Model.PhoneNumber</a></div>
+                                                </li>
+                                                <li>
+                                                    <div class="title">Email:</div>
+                                                    <div class="text"><a href="">@Model.Email</a></div>
+                                                </li>
+                                                <li>
+                                                    <div class="title">Gender:</div>
+                                                    @if (Model.Gender is null)
+                                                    {
+                                                        <div class="text">Male</div>
+                                                    }
+                                                    <div class="text">@Model.Gender</div>
+                                                </li>
+                                                <li>
+                                                    <div class="title">Address:</div>
+                                                    @if (Model.ParmanentAddress is null)
+                                                    {
+                                                        <div class="text">Demo</div>
+                                                    }
+                                                    <div class="text">@Model.ParmanentAddress</div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+
+                                    </div>
+                                </div>
+
+                                <div class="pro-edit"><a data-bs-target="#profile_info" data-bs-toggle="modal" class="edit-icon" href="#"><i class="fa fa-pencil"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="memeber_profile">
+                <div class="row">
+                    <div class="col-md-6 d-flex">
+                        <div class="card profile-box flex-fill">
+                            <div class="card-body">
+                                <h3 class="card-title">Personal Informations <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#personal_info_modal"><i class="fa fa-pencil"></i></a></h3>
+                                <ul class="personal-info">
+                                    <li>
+                                        <div class="title">NID No.</div>
+                                        <div class="text">@Model.NIDNumber</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Nationality</div>
+                                        <div class="text">Bangladeshi</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Religion</div>
+                                        <div class="text">Christian</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Marital status</div>
+                                        <div class="text">Married</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Smoker</div>
+                                        <div class="text">Yes</div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex">
+                        <div class="card profile-box flex-fill">
+                            <div class="card-body">
+                                <h3 class="card-title">Emergency Contact <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#emergency_contact_modal"><i class="fa fa-pencil"></i></a></h3>
+                                <h5 class="section-title">Primary</h5>
+                                <ul class="personal-info">
+                                    <li>
+                                        <div class="title">Name</div>
+                                        <div class="text">John Doe</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Relationship</div>
+                                        <div class="text">Father</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Phone </div>
+                                        <div class="text">9876543210, 9876543210</div>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <h5 class="section-title">Secondary</h5>
+                                <ul class="personal-info">
+                                    <li>
+                                        <div class="title">Name</div>
+                                        <div class="text">Karen Wills</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Relationship</div>
+                                        <div class="text">Brother</div>
+                                    </li>
+                                    <li>
+                                        <div class="title">Phone </div>
+                                        <div class="text">9876543210, 9876543210</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var url = '/api/UploadFile/Upload';
+            $('.fileupload').fileupload({
+                url: url,
+                dataType: 'json',
+                done: function (e, data) {
+                    $('#profilePicture').attr('src', '/uploads/' + data.result);
+                    $('.profile-picture').attr('src', '/uploads/' + data.result);
+                }
+            }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        }); 
+
+    </script>
+}
